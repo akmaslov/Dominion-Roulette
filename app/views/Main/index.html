@@ -1,0 +1,18 @@
+#{extends 'main.html' /} #{set title:'Kingom View' /}
+
+<h1>Kingdoms</h1>
+#{list items:kingdoms, as:'kingdom'}
+<div class="kingdom">
+	<a href="@{Main.viewKingdom(kingdom.id)}">${kingdom.name}(${kingdom.id})</a>
+	<ul>
+		<li>Distribution: ${kingdom.currentDistribution}</li>
+		<li>Always in: ${kingdom.alwaysIn}</li>
+		<li>Never vote: ${kingdom.neverVote}</li>
+	</ul>
+</div>
+#{/list}
+
+
+
+
+

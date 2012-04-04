@@ -1,0 +1,27 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page (will lead to the default kingdom)
+GET     /                                       	Main.index
+
+# View a specific kingdom
+GET     /kingdom/{kingdomid}                    	Main.viewKingdom
+GET     /kingdom/{kingdomid}/cards                 	Main.viewCards
+GET		/kingdom/{kingdomid}/config					Main.viewKingdomConfigs
+
+# Interact with a kingdom's card set
+POST	/kingdom/{kingdomid}/addCard				Main.addCard
+POST	/kingdom/{kingdomid}/addSpecificCard		Main.addSpecificCard
+POST	/kingdom/{kingdomid}/removeCard/{cardid}	Main.removeCard
+POST	/kingdom/{kingdomid}/fill					Main.fillKingdom
+
+
+# Ignore favicon requests
+GET     /favicon.ico                            	404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                	staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  	{controller}.{action}

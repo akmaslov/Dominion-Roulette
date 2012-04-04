@@ -1,0 +1,5 @@
+24 Feb 2012 11:48:03,257 INFO  ~ Starting /Users/alexey/Development/Play/DominionRoulette
+24 Feb 2012 11:48:03,722 WARN  ~ You're running Play! in DEV mode
+24 Feb 2012 11:48:03,804 INFO  ~ Listening for HTTP on port 9002 (Waiting a first request to start) ...
+24 Feb 2012 11:48:09,474 INFO  ~ Connected to jdbc:postgresql://localhost/dominion
+24 Feb 2012 11:48:10,178 INFO  ~ Application 'DominionRoulette' is now started !

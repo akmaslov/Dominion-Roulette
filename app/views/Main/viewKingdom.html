@@ -1,0 +1,173 @@
+#{extends 'main.html' /} #{set title:'Kingom View' /}
+
+
+<h1>Current Kingdom: ${kingdom.name}</h1>
+<div id="kingdomSettings">
+	<ul>
+		<li>Distribution: ${kingdom.currentDistribution}</li>
+		<li>Always in: #{if
+			kingdom.alwaysIn}${kingdom.alwaysIn[0].prettyPrint(kingdom.alwaysIn)}
+			#{/if}</li>
+		<li>Never vote: #{if
+			kingdom.neverVote}${kingdom.neverVote[0].prettyPrint(kingdom.neverVote)}
+			#{/if}</li>
+		<li>Current set: #{if
+			kingdom.currentCards}${kingdom.currentCards.size()} #{/if}</li>
+	</ul>
+</div>
+<div id="currentCards">
+	<div id="twos" class="cardRow">
+		#{list items:kingdom.currentCards, as:'card'}#{if card.getTotalCost()
+		== 2}
+		<form class="card" method="POST"
+			action="@{Main.removeCard(kingdom.id,card.id)}">
+			<span class="cardTitle">${card.name}</span> <span class="cardSet">(${card.set.toString().toLowerCase()})</span>
+			<img alt="${card.name}" src="/public/images/${card.image}"> <span
+				class="voteOut"><input type="submit" name="operation"
+				value="Vote Out" /><input type="submit" name="operation"
+				value="Remove" />
+			</span>
+		</form>
+		#{/if}#{/list}
+	</div>
+	<div id="threes" class="cardRow">
+		#{list items:kingdom.currentCards, as:'card'}#{if card.getTotalCost()
+		== 3}
+		<form class="card" method="POST"
+			action="@{Main.removeCard(kingdom.id,card.id)}">
+			<span class="cardTitle">${card.name}</span> <span class="cardSet">(${card.set.toString().toLowerCase()})</span>
+			<img alt="${card.name}" src="/public/images/${card.image}"> <span
+				class="voteOut"><input type="submit" name="operation"
+				value="Vote Out" /><input type="submit" name="operation"
+				value="Remove" />
+			</span>
+		</form>
+		#{/if}#{/list}
+	</div>
+	<div id="fours" class="cardRow">
+		#{list items:kingdom.currentCards, as:'card'}#{if card.getTotalCost()
+		== 4}
+		<form class="card" method="POST"
+			action="@{Main.removeCard(kingdom.id,card.id)}">
+			<span class="cardTitle">${card.name}</span> <span class="cardSet">(${card.set.toString().toLowerCase()})</span>
+			<img alt="${card.name}" src="/public/images/${card.image}"> <span
+				class="voteOut"><input type="submit" name="operation"
+				value="Vote Out" /><input type="submit" name="operation"
+				value="Remove" />
+			</span>
+		</form>
+		#{/if}#{/list}
+	</div>
+	<div id="fives" class="cardRow">
+		#{list items:kingdom.currentCards, as:'card'}#{if card.getTotalCost()
+		== 5}
+		<form class="card" method="POST"
+			action="@{Main.removeCard(kingdom.id,card.id)}">
+			<span class="cardTitle">${card.name}</span> <span class="cardSet">(${card.set.toString().toLowerCase()})</span>
+			<img alt="${card.name}" src="/public/images/${card.image}"> <span
+				class="voteOut"><input type="submit" name="operation"
+				value="Vote Out" /><input type="submit" name="operation"
+				value="Remove" />
+			</span>
+		</form>
+		#{/if}#{/list}
+	</div>
+	<div id="sixplus" class="cardRow">
+		#{list items:kingdom.currentCards, as:'card'}#{if card.getTotalCost()
+		>= 6}
+		<form class="card" method="POST"
+			action="@{Main.removeCard(kingdom.id,card.id)}">
+			<span class="cardTitle">${card.name}</span> <span class="cardSet">(${card.set.toString().toLowerCase()})</span>
+			<img alt="${card.name}" src="/public/images/${card.image}"> <span
+				class="voteOut"><input type="submit" name="operation"
+				value="Vote Out" /><input type="submit" name="operation"
+				value="Remove" />
+			</span>
+		</form>
+		#{/if}#{/list}
+	</div>
+</div>
+<h1>Controls</h1>
+<div id="controls">
+
+	<form id="fillOutKingdom" method="POST"
+		action="@{Main.fillKingdom(kingdom.id)}">
+		<h2>Fill out kingdom:</h2>
+		<div class="formRow">
+			<input type="submit" name="refilAction" value="Complete Kingdom" />
+		</div>
+		<div class="formRow">
+			<input type="submit" name="refilAction" value="Randomize Kingdom" />
+		</div>
+		<div class="formRow">
+			<input type="submit" name="refilAction" value="Clear Kingdom" />
+		</div>
+	</form>
+	<form id="addCardForm" method="post"
+		action="@{Main.addCard(kingdom.id)}">
+		<h2>Add a randomized card:</h2>
+		<div class="formRow">
+			<span class="label">Card cost: </span> <select name="cost">
+				<option value="WHATEVER" disabled="disabled">Whatever is
+					missing</option>
+				<option value="TWO" selected="selected">Two's</option>
+				<option value="THREE_FOUR">Three or Four</option>
+				<option value="FIVE_PLUS">Five and over</option>
+			</select>
+		</div>
+		<div class="formRow">
+			<span class="label">Algorithm: </span> <select name="strategy">
+				<option value="WEIGHTED_VOTE" selected="selected">A
+					weighted distribution</option>
+				<option value="RANDOM_ALL">A random card</option>
+				<option value="RANDOM_UNUSED">A random unused card</option>
+			</select>
+		</div>
+		<!-- TODO: seems like a nice addition 
+			<div>
+				<span class="label">Restrict to expansions:</span>
+				<select name="sets" disabled="disabled" multiple="multiple">
+					<option value="BASE">Base Dominion set</option>
+					<option value="INTRIGUE">Intrigue expansion</option>
+					<option value="SEASIDE">Seaside expansion</option>
+					<option value="ALCHEMY">Alchemy expansion</option>
+					<option value="PROSPERITY">Prosperity expansion</option>
+					<option value="BGG">BGG promotional cards</option>
+					<option value="CORNUCOPIA" disabled="disabled">Cornucopia expansion</option>
+					<option value="HINTERLANDS" disabled="disabled">Hinterlands expansion</option>
+				</select>
+			</div>
+			-->
+		<div class="formRow">
+			<input type="submit" value="Pick a Card" />
+		</div>
+	</form>
+	<form id="addSpecificForm" method="POST"
+		action="@{Main.addSpecificCard(kingdom.id)}">
+		<h2>Pick specific card:</h2>
+		<div class="formRow">
+			<span class="label">Action: </span> <select name="desiredAction">
+				<option value="ADD">Add card to the kingdom</option>
+				<option value="ALWAYS_IN">Mark card as "always in"</option>
+				<option value="NEVER_VOTE">Mark card as "never vote"</option>
+			</select>
+		</div>
+		<div class="formRow">
+			<span class="label">Card: </span> <select name="cardid">
+				#{list items:allCards, as:'card'}
+				<option value="${card.id}">${card.set.toString().toLowerCase()}
+					- ${card.name}</option> #{/list}
+			</select>
+		</div>
+		<div class="formRow">
+			<input type="submit" value="Pick the Card" />
+		</div>
+	</form>
+
+
+</div>
+
+
+
+
+
